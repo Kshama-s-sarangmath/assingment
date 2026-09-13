@@ -34,7 +34,8 @@ def get_settings() -> Settings:
     load_dotenv(base_dir.parent / ".env")
     os.environ.setdefault("SSL_CERT_FILE", certifi.where())
     os.environ.setdefault("REQUESTS_CA_BUNDLE", certifi.where())
-    data_dir = Path(os.getenv("MINILEARN_DATA_DIR", str(base_dir / "data"))).resolve()
+    configured_data_dir = os.getenv("MINILEARN_DATA_DIR")
+    data_dir = Path(configured_data_dir or base_dir / "data").resolve()
     sessions_dir = base_dir / ".sessions"
     logs_dir = base_dir / ".logs"
     origins = os.getenv("MINILEARN_ALLOWED_ORIGINS", "http://localhost:5173")
